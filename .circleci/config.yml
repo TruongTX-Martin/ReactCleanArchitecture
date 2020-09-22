@@ -1,0 +1,146 @@
+version: 2.1
+
+orbs:
+  aws-cli: circleci/aws-cli@0.1.19
+  slack: circleci/slack@3.4.2
+
+jobs:
+  
+  boiderplate-admin-build:
+    parameters:
+      api_endpoint:
+        type: string
+        default: http://dev.oppi.live
+
+    docker:
+      - image: circleci/node:10
+
+    working_directory: ~/repo
+
+    environment:
+      CI: false
+      ENV_FILE_PATH: packages/boiderplate-admin/.env
+
+    steps:
+      - checkout
+
+      - restore_cache:
+          keys:
+            - v1-dependencies-{{ checksum "package.json" }}
+            - v1-dependencies-
+
+      - run: yarn install
+
+      - save_cache:
+          paths:
+            - node_modules
+          key: v1-dependencies-{{ checksum "package.json" }}
+
+      - run: echo "REACT_APP_ADMIN_URL=<< parameters.api_endpoint >>" > ${ENV_FILE_PATH}
+
+      - run: yarn build:boiderplate-admin
+      - persist_to_workspace:
+          root: ~/repo
+          paths:
+            - packages/boiderplate-admin/build
+  
+  boiderplate-admin-deploy:
+    parameters:
+      environment:
+        type: string
+      frontend_bucket:
+        type: string
+      cf_dist_id:
+        type: string
+
+    executor: aws-cli/default
+
+    working_directory: ~/repo
+
+    steps:
+      - attach_workspace:
+          at: ~/repo
+
+      - aws-cli/setup:
+          profile-name: default
+
+      - run:
+          name: Upload to AWS S3
+          command: |
+            aws s3 sync --delete packages/boiderplate-admin/build/ s3://<< parameters.frontend_bucket >>/admin
+            aws cloudfront create-invalidation --distribution-id << parameters.cf_dist_id >> --paths "/*"
+            echo "Successfully uploaded to s3://<< parameters.frontend_bucket >>/"
+            curl -X POST -H 'Content-type: application/json' --data '{"text":"Deploy latest admin to << parameters.environment >> succeed."}' $SLACK_WEBHOOK_URL
+
+workflows:
+  version: 2
+  deploy_boiderplate-admin-prd:
+    jobs:
+      - slack/approval-notification:
+          webhook: "${SLACK_WEBHOOK_URL}"
+          mentions: 'mike,lily'
+          channel: 's-prj-beknown-dev-logs'
+          filters:
+            branches:
+              only:
+                - /^release-admin\/prd/
+      - request-approval:
+          type: approval
+          filters:
+            branches:
+              only:
+                - /^release-admin\/prd/
+          requires:
+            - slack/approval-notification
+      - boiderplate-admin-build:
+          api_endpoint: "https://share.oppi.live"
+          filters:
+            branches:
+              only: /^release-admin\/prd/
+          requires:
+            - request-approval
+      - boiderplate-admin-deploy:
+          environment: production
+          frontend_bucket: ${ADMIN_BUCKET_PRD}
+          cf_dist_id: ${ADMIN_PRD_CF_DIST_ID}
+          requires:
+            - boiderplate-admin-build
+          filters:
+            branches:
+              only: /^release-admin\/prd/
+
+  deploy_boiderplate-admin-dev:
+    jobs:
+      - boiderplate-admin-build:
+          api_endpoint: "https://dev.oppi.live"
+          filters:
+            branches:
+              only: /^release-admin\/dev/
+      - boiderplate-admin-deploy:
+          environment: dev
+          frontend_bucket: ${ADMIN_BUCKET_DEV}
+          cf_dist_id: ${ADMIN_DEV_CF_DIST_ID}
+          requires:
+            - boiderplate-admin-build
+          filters:
+            branches:
+              only: /^release-admin\/dev/
+
+
+  deploy_boiderplate-admin-stg:
+    jobs:
+      - boiderplate-admin-build:
+          api_endpoint: "https://stg.oppi.live"
+          filters:
+            branches:
+              only: /^release-admin\/stg/
+      - boiderplate-admin-deploy:
+          environment: stg
+          frontend_bucket: ${ADMIN_BUCKET_STG}
+          cf_dist_id: ${ADMIN_STG_CF_DIST_ID}
+          requires:
+            - boiderplate-admin-build
+          filters:
+            branches:
+              only: /^release-admin\/stg/
+

@@ -1,0 +1,34 @@
+// Styles
+// CoreUI Icons Set
+// @import '../../../../node_modules/@coreui/icons/css/coreui-icons.css';
+// Import Flag Icons Set
+@import "./vendors/_variables";
+
+// @import "bootstrap-variables";
+
+// @import 'layout';
+
+// @import "nav";
+
+// @import "sidebar";
+
+@import 'font';
+
+@import "custom";
+
+@import "../../../../node_modules/flag-icon-css/css/flag-icon.min.css";
+// Import Font Awesome Icons Set
+@import "../../../../node_modules/font-awesome/css/font-awesome.min.css";
+// Import Simple Line Icons Set
+@import "../../../../node_modules/simple-line-icons/css/simple-line-icons.css";
+
+// Import styles
+@import "../../../../node_modules/@coreui/coreui/scss/coreui.scss";
+
+@import "../../../../node_modules/@coreui/coreui/scss/_dropdown-menu-right.scss";
+
+// // If you want to add something do it here
+
+@import "../../../../node_modules/react-datepicker/dist/react-datepicker.css";
+
+@import "../../../../node_modules/antd/dist/antd.css";
