@@ -18,7 +18,6 @@ export interface LoginState {
 
 }
 
-
 export default class Login extends Component<LoginProps, LoginState> implements BaseView {
     private loginViewModel: LoginViewModel;
 
@@ -57,7 +56,6 @@ export default class Login extends Component<LoginProps, LoginState> implements 
 
     render() {
         const { email, password, emailError, passwordError, loading } = this.state;
-        console.log('Render loading:', loading);
         return (
           <LoadingOverlay className="_loading_overlay_wrapper_custom" style={{ backgroundColor: '#FFFFFF' }} active={loading} spinner>
             <div className="app flex-row align-items-center">
