@@ -3,9 +3,8 @@ import { HashRouter, Route, Switch } from "react-router-dom";
 import "./scss/style.scss";
 // import Login from "./containers/Login";
 import Login from "./presentation/views/login/Login";
-import LoginUseCase from './domain/interactors/login/LoginUseCase';
-import AuthHolder from './domain/entity/login/models/AuthHolder';
-import AuthFakeApi from './data/AuthFakeApi';
+import LoginUseCase from './domain/usecase/auth/LoginUseCase';
+import AuthRepositoryImpl from './data/AuthRepositoryImpl';
 import LoginViewModelImpl from './presentation/views/login/LoginViewModelImpl';
 
 
@@ -19,12 +18,11 @@ class Root extends Component {
   constructor(props) {
     super(props);
     //data  layer
-    const authRepository = new AuthFakeApi();
+    const authRepository = new AuthRepositoryImpl();
     //domain layer
-    const authHolder = new AuthHolder();
-    const loginUseCase = new LoginUseCase(authRepository, authHolder);
+    const loginUseCase = new LoginUseCase(authRepository);
     //view layer
-    this.loginViewModel = new LoginViewModelImpl(loginUseCase, authHolder);
+    this.loginViewModel = new LoginViewModelImpl(loginUseCase);
   }
   
 
