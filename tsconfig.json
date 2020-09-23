@@ -26,7 +26,8 @@
     "experimentalDecorators": true,
     "rootDirs": ["src", "stories"],
     "paths": {
-      "boiderplate-admin": ["packages/boiderplate-admin/src/*"]
+      "boiderplate-admin": ["packages/boiderplate-admin/src/*"],
+      "boiderplate-frontend": ["packages/boiderplate-frontend/src/*"]
     }
   },
 

@@ -4,5 +4,5 @@ import Root from "./Root";
 import "bootstrap/dist/css/bootstrap.min.css";
 ReactDOM.render(
   <Root />,
-  document.getElementById("root-admin")
+  document.getElementById("root-frontend")
 );

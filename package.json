@@ -115,6 +115,8 @@
     "analyze": "source-map-explorer build/static/js/main.*",
     "start:boiderplate-admin": "yarn install && FRONTEND_PACKAGE=boiderplate-admin node scripts/start.js",
     "build:boiderplate-admin": "yarn install && FRONTEND_PACKAGE=boiderplate-admin node scripts/build.js",
+    "start:boiderplate-frontend": "yarn install && FRONTEND_PACKAGE=boiderplate-frontend node scripts/start.js",
+    "build:boiderplate-frontend": "yarn install && FRONTEND_PACKAGE=boiderplate-frontend node scripts/build.js",
     "test": "yarn install && node scripts/test.js --env=jsdom",
     "test:console": "yarn install && node scripts/test.js --testPathPattern=\"./packages/podder-management-console/src/\" --env=jsdom",
     "precommit": "lint-staged",
