@@ -27,6 +27,7 @@
     "react-bootstrap": "^1.0.0-beta.16",
     "react-dev-utils": "^9.0.0-next.68",
     "react-loadable": "^5.5.0",
+    "react-loading-overlay": "^1.0.1",
     "react-router-dom": "^5.0.1",
     "reactstrap": "^8.6.0",
     "semantic-ui-css": "^2.4.1",
