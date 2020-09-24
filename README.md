@@ -23,3 +23,11 @@ yarn start:boiderplate-admin
 ```
 
 
+#### boiderplate-frontend
+
+```
+# to run boiderplate-frontend
+yarn start:boiderplate-frontend
+```
+
+
