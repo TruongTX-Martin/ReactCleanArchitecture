@@ -3,9 +3,11 @@ import { Button, Card, CardBody, CardGroup, Col, Container, Form, Input, InputGr
 import LoadingOverlay from "react-loading-overlay";
 import BaseView from '../base/BaseView';
 import LoginViewModel from './LoginViewModel';
+import LoginUseCase from '../../../domain/usecase/auth/LoginUseCase';
+import LoginViewModelImpl from './LoginViewModelImpl';
 
 export interface LoginProps {
-    loginViewModel: LoginViewModel;
+    authRepository: any;
     props: any
 }
 
@@ -23,14 +25,15 @@ export default class Login extends Component<LoginProps, LoginState> implements 
 
     public constructor(props: LoginProps) {
         super(props);
-        const { loginViewModel } = this.props;
-        this.loginViewModel = loginViewModel;
+        const { authRepository } = this.props;
+        const loginUseCase = new LoginUseCase(authRepository);
+        this.loginViewModel = new LoginViewModelImpl(loginUseCase);
         this.state = {
-            email: loginViewModel.email,
-            password: loginViewModel.password,
-            emailError: loginViewModel.emailError,
-            passwordError: loginViewModel.passwordError,
-            loading: loginViewModel.loading,
+            email: this.loginViewModel.email,
+            password: this.loginViewModel.password,
+            emailError: this.loginViewModel.emailError,
+            passwordError: this.loginViewModel.passwordError,
+            loading: this.loginViewModel.loading,
         };
     }
 

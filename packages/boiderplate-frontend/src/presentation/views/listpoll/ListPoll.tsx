@@ -3,10 +3,12 @@ import BaseView from '../base/BaseView';
 import ListPollViewModel from './ListPollViewModel';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
+import GetListPollUseCase from '../../../domain/usecase/poll/GetListPollUseCase';
+import ListPollViewModelImpl from './ListPollViewModelImpl';
 
 
 export interface ListPollProps {
-    listPollViewModel :  ListPollViewModel
+    pollRepository: any
     props: any
 }
 
@@ -20,8 +22,9 @@ export default class ListPoll extends Component<ListPollProps, ListPollState> im
 
     public constructor(props) {
         super(props);
-        const { listPollViewModel } = this.props;
-        this.listPollViewModel = listPollViewModel;
+        const { pollRepository } = this.props;
+        const getListPollUseCase = new GetListPollUseCase(pollRepository);
+        this.listPollViewModel = new ListPollViewModelImpl(getListPollUseCase);
     }
 
     render() {

@@ -69,7 +69,7 @@ export default class LoginViewModelImpl implements LoginViewModel {
         return true;
     }
 
-    private notifyViewAboutChanges = (): void => {
+     notifyViewAboutChanges = (): void => {
         if (this.baseView) {
           this.baseView.onViewModelChanged();
         }
