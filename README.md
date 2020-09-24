@@ -1,13 +1,10 @@
 
 ## Architecture
 
-### Tech-stack
-
-![tech-stack](https://user-images.githubusercontent.com/953015/61521948-45fdad00-aa4c-11e9-82a6-ccbd7138c864.png)
 
 ### Classes and data-flow
 
-![flux](https://user-images.githubusercontent.com/953015/61521941-439b5300-aa4c-11e9-8c60-69efc3f6fa20.png)
+![flux](https://miro.medium.com/max/1400/1*iDwC7At7blypzZPqIAn_PQ.png)
 
 ### Classes on Clean Architecture
 
@@ -25,14 +22,4 @@
 yarn start:boiderplate-admin
 ```
 
-### Deploy flow
 
-#### console
-
-![deploy-flow](https://user-images.githubusercontent.com/953015/61761741-9ab57500-ae0a-11e9-9e36-46bfbf541719.png)
-
-### Environments
-
-| env name     | end point                              | branch to trigger deploy                              | Basic Auth | s3 bucket name           |
-| ------------ | -------------------------------------- | ----------------------------------------------------- | ---------- | ------------------------ |
-| frontend-dev | https://d2o801guu88kfa.cloudfront.net/ | release-frontend\/.\* (Ex:release-frontend/20200213 ) | yes        | fsra-regbot-frontend-stg |
