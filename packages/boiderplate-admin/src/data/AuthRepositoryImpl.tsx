@@ -1,4 +1,4 @@
-import AuthRepository from "../domain/repository/login/AuthRepository";
+import AuthRepository from "../domain/repository/AuthRepository";
 import BaseRepository from './BaseRepository';
 
 

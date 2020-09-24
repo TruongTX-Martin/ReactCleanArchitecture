@@ -7,6 +7,12 @@ import LoginUseCase from './domain/usecase/auth/LoginUseCase';
 import AuthRepositoryImpl from './data/AuthRepositoryImpl';
 import LoginViewModelImpl from './presentation/views/login/LoginViewModelImpl';
 
+//list poll
+import ListPoll from './presentation/views/listpoll/ListPoll';
+import GetListPollUseCase from './domain/usecase/poll/GetListPollUseCase';
+import PollRepositoryImpl from './data/PollRepositoryImpl';
+import ListPollViewModelImpl from './presentation/views/listpoll/ListPollViewModelImpl';
+
 
 const loading = () => (
   <div className="animated fadeIn pt-3 text-center">Loading...</div>
@@ -14,6 +20,8 @@ const loading = () => (
 
 class Root extends Component {
   loginViewModel = null;
+
+  listPollViewModel = null;
 
   constructor(props) {
     super(props);
@@ -23,6 +31,10 @@ class Root extends Component {
     const loginUseCase = new LoginUseCase(authRepository);
     //view layer
     this.loginViewModel = new LoginViewModelImpl(loginUseCase);
+
+    const pollRepository = new PollRepositoryImpl();
+    const getListPollUseCase = new GetListPollUseCase(pollRepository);
+    this.listPollViewModel = new ListPollViewModelImpl(getListPollUseCase);
   }
   
 
@@ -38,7 +50,7 @@ class Root extends Component {
                 path="/login"
                 render={props => <Login loginViewModel={this.loginViewModel} props={props}  />}
               />
-              <Route path="/" render={props => <Login loginViewModel={this.loginViewModel} props={props} />} />
+              <Route path="/" render={props => <ListPoll listPollViewModel={this.listPollViewModel} props={props} />} />
             </Switch>
           </Route>
         </React.Suspense>

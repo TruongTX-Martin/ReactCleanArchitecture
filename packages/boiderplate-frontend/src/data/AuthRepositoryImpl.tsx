@@ -1,8 +1,8 @@
-import AuthRepository from "../domain/repository/login/AuthRepository";
+import AuthRepository from "../domain/repository/AuthRepository";
 import BaseRepository from './BaseRepository';
 
 
-export default class AuthFakeApi extends BaseRepository implements AuthRepository {
+export default class AuthRepositoryImpl extends BaseRepository implements AuthRepository {
     constructor() {
         super();
         this.PATH = '/api/admin/v1';

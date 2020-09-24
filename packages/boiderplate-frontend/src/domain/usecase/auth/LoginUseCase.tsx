@@ -3,8 +3,6 @@ import AuthRepository from '../../repository/AuthRepository';
 export default class LoginUseCase {
     private authRepository: AuthRepository;
 
-
-
     public constructor(authRepository: AuthRepository) {
         this.authRepository = authRepository;
     }

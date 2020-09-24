@@ -79,9 +79,10 @@ class BaseRepository {
 
   //use when status is 403
   navigateLogin() {
-    history.replace("#/login");
-    window.location.reload();
-    localStorage.setItem(ACCESS_TOKEN, null);
+  console.log(history);
+    // history.replace("#/login");
+    // window.location.reload();
+    // localStorage.setItem(ACCESS_TOKEN, null);
   }
 
   async request(method, url, params = {}, isDownLoad = false) {
@@ -147,6 +148,7 @@ class BaseRepository {
         },
         body: JSON.stringify(params)
       });
+      console.log('response"', response);
       if (response.status == 401) {
         this.navigateLogin();
         return;
