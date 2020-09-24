@@ -2,6 +2,9 @@ import React, { Component } from "react";
 import { HashRouter, Route, Switch } from "react-router-dom";
 import "./scss/style.scss";
 // import Login from "./containers/Login";
+import { DependencyProvider } from './presentation/hooks/DependencyProvider/DependencyProvider';
+import { appContainer } from './ioc/AppContainer';
+
 import Login from "./presentation/views/login/Login";
 import LoginUseCase from './domain/usecase/auth/LoginUseCase';
 import AuthRepositoryImpl from './data/AuthRepositoryImpl';
@@ -12,6 +15,9 @@ import ListPoll from './presentation/views/listpoll/ListPoll';
 import GetListPollUseCase from './domain/usecase/poll/GetListPollUseCase';
 import PollRepositoryImpl from './data/PollRepositoryImpl';
 import ListPollViewModelImpl from './presentation/views/listpoll/ListPollViewModelImpl';
+
+
+
 
 
 const loading = () => (
@@ -41,20 +47,22 @@ class Root extends Component {
 
   render() {
     return (
-      <HashRouter>
-        <React.Suspense fallback={loading()}>
-          <Route>
-            <Switch>
-              <Route
-                exact
-                path="/login"
-                render={props => <Login loginViewModel={this.loginViewModel} props={props}  />}
-              />
-              <Route path="/" render={props => <ListPoll listPollViewModel={this.listPollViewModel} props={props} />} />
-            </Switch>
-          </Route>
-        </React.Suspense>
-      </HashRouter>
+      <DependencyProvider container={appContainer}>
+        <HashRouter>
+          <React.Suspense fallback={loading()}>
+            <Route>
+              <Switch>
+                <Route
+                  exact
+                  path="/login"
+                  render={props => <Login loginViewModel={this.loginViewModel} props={props}  />}
+                />
+                <Route path="/" render={props => <ListPoll listPollViewModel={this.listPollViewModel} props={props} />} />
+              </Switch>
+            </Route>
+          </React.Suspense>
+        </HashRouter>
+      </DependencyProvider>
     );
   }
 }
