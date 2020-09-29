@@ -7,7 +7,6 @@ import LoginUseCase from '../../../domain/usecase/auth/LoginUseCase';
 import LoginViewModelImpl from './LoginViewModelImpl';
 
 export interface LoginProps {
-    props: any;
     authRepository : any;
 }
 
@@ -17,6 +16,7 @@ export interface LoginState {
     emailError: string;
     passwordError: string;
     loading: boolean;
+    textDemo: string;
 
 }
 
@@ -36,6 +36,7 @@ export default class Login extends Component<LoginProps, LoginState> implements 
             emailError: this.loginViewModel.emailError,
             passwordError: this.loginViewModel.passwordError,
             loading: this.loginViewModel.loading,
+            textDemo: 'Truongtechno'
         };
     }
 
@@ -70,7 +71,7 @@ export default class Login extends Component<LoginProps, LoginState> implements 
                     <CardGroup>
                       <Card className="p-4">
                         <CardBody>
-                          <Form>
+                          <Form data-testid="login-form">
                             <h1>Login</h1>
                             <p className="text-muted">Sign In to your account</p>
                             <InputGroup className="mb-3">
@@ -80,6 +81,7 @@ export default class Login extends Component<LoginProps, LoginState> implements 
                                 </InputGroupText>
                               </InputGroupAddon>
                               <Input 
+                                data-testid="email"
                                 type="text" 
                                 placeholder="Email" 
                                 autoComplete="email"
@@ -91,7 +93,7 @@ export default class Login extends Component<LoginProps, LoginState> implements 
                             </InputGroup>
                             {
                               emailError?.length > 0 &&
-                              <text style={{ color: 'red' }}>{emailError}</text>
+                              <p style={{ color: 'red' }}>{emailError}</p>
                           }
                             <InputGroup className="mb-4">
                               <InputGroupAddon addonType="prepend">
@@ -100,6 +102,7 @@ export default class Login extends Component<LoginProps, LoginState> implements 
                                 </InputGroupText>
                               </InputGroupAddon>
                               <Input 
+                                data-testid="password"
                                 type="password" 
                                 placeholder="Password" 
                                 autoComplete="current-password"
@@ -109,13 +112,11 @@ export default class Login extends Component<LoginProps, LoginState> implements 
                             }}
                               />
                             </InputGroup>
-                            {
-                                passwordError?.length > 0 &&
-                                <text style={{ color: 'red' }}>{passwordError}</text>
-                            }
+                            <p data-testid="message_error" style={{ color: 'red' }}>{passwordError}</p>
                             <Row>
                               <Col xs="6">
                                 <Button 
+                                  data-testid="btn_signin"
                                   color="primary" 
                                   className="px-4"
                                   onClick={() => this.loginViewModel.onClickSignIn()}

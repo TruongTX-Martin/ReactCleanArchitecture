@@ -55,7 +55,8 @@ class BaseRepository {
   }
 
   async getFile(url, params = {}, fileName) {
-    this.request("GET", url, params, true, fileName);
+    console.log(fileName);
+    this.request("GET", url, params, true);
   }
 
   async post(url, params = {}) {
@@ -117,15 +118,15 @@ class BaseRepository {
         return;
       }
       if (isDownLoad) {
-        const blob = await response.blob();
-        const urlPDF = window.URL.createObjectURL(new Blob([blob]));
-        const link = document.createElement("a");
-        link.href = urlPDF;
-        link.setAttribute("download", params.fileName + '.' + params.type);
-        document.body.appendChild(link);
-        link.click();
-        link.parentNode.removeChild(link);
-        return;
+        // const blob = await response.blob();
+        // const urlPDF = window.URL.createObjectURL(new Blob([blob]));
+        // const link = document.createElement("a");
+        // link.href = urlPDF;
+        // link.setAttribute("download", params['fileName'] + '.' + params['type']);
+        // document.body.appendChild(link);
+        // link.click();
+        // link.parentNode.removeChild(link);
+        // return;
       } else {
         const responseJson = await response.json();
         const tokenNew = response.headers.get("x-auth-token");

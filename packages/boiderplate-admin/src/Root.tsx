@@ -28,9 +28,9 @@ class Root extends Component {
               <Route
                 exact
                 path="/login"
-                render={props => <Login authRepository={this.authRepository} props={props}  />}
+                render={props => <Login authRepository={this.authRepository} {...props} />}
               />
-              <Route path="/" render={props => <Login authRepository={this.authRepository} props={props} />} />
+              <Route path="/" render={props => <Login authRepository={this.authRepository} {...props} />} />
             </Switch>
           </Route>
         </React.Suspense>

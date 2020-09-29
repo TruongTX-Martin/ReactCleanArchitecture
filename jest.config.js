@@ -12,6 +12,12 @@ module.exports = {
     "^.+\\.csv$": "<rootDir>/config/jest/csvTransform.js",
     // "^(?!.*\\.(js|jsx|mjs|css|csv|json)$)": "<rootDir>/config/jest/fileTransform.js"
   },
+  "setupFilesAfterEnv": [
+    "@testing-library/react/cleanup-after-each",
+    "@testing-library/jest-dom/extend-expect"
+  ],
+  "testRegex": "(/__tests__/.*|(\\.|/)(test|spec))\\.tsx?$",
+
   "setupFiles": [
     '<rootDir>/jest.setup.tsx',
     "react-app-polyfill/jsdom",
@@ -22,6 +28,8 @@ module.exports = {
     "^.+\\.(png)$": "<rootDir>/config/jest/fileMock.js",
     "^.+\\.(css|scss)$": "<rootDir>/node_modules/jest-css-modules"
   },
+  "moduleFileExtensions": ["ts", "tsx", "js", "jsx", "json", "node"]
+
   // "modulePaths": [
   //   "<rootDir>/packages/podder-management-console/src",
   //   "<rootDir>/packages/podder-frontend-common/src",

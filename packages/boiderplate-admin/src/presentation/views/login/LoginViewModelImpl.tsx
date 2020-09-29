@@ -43,8 +43,8 @@ export default class LoginViewModelImpl implements LoginViewModel {
           this.loading = true;
           this.notifyViewAboutChanges();
           const loginResult = await this.loginUseCase.loginUser(this.email, this.password);   
-          if (loginResult.status == 'error') {
-            this.passwordError = loginResult.message;
+          if (loginResult['status'] == 'error') {
+            this.passwordError = loginResult['message'];
           }   
           this.loading = false;
           this.notifyViewAboutChanges();
