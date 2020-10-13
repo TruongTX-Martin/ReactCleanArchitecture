@@ -23,6 +23,8 @@ export interface LoginState {
 export default class Login extends Component<LoginProps, LoginState> implements BaseView {
     private loginViewModel: LoginViewModel;
 
+    private textInputEmail: any;
+
     public constructor(props: LoginProps) {
         super(props);
         const { authRepository } = this.props;
@@ -81,6 +83,7 @@ export default class Login extends Component<LoginProps, LoginState> implements 
                                 </InputGroupText>
                               </InputGroupAddon>
                               <Input 
+                                ref={(node) => this.textInputEmail = node}
                                 data-testid="email"
                                 type="text" 
                                 placeholder="Email" 
@@ -93,7 +96,7 @@ export default class Login extends Component<LoginProps, LoginState> implements 
                             </InputGroup>
                             {
                               emailError?.length > 0 &&
-                              <p style={{ color: 'red' }}>{emailError}</p>
+                              <p data-testid="email_error" style={{ color: 'red' }}>{emailError}</p>
                           }
                             <InputGroup className="mb-4">
                               <InputGroupAddon addonType="prepend">
