@@ -109,6 +109,7 @@
     "react/jsx-closing-tag-location": 0,
     "react/destructuring-assignment": 0,
     "operator-linebreak": 0,
-    "implicit-arrow-linebreak": 0
+    "implicit-arrow-linebreak": 0,
+    "no-console": 0,
   }
 }
